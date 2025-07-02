@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Menu - GOGO Pizza</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Amatic+SC">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: "Amatic SC", sans-serif
+        }
+
+        .menu-bg {
+            background: linear-gradient(135deg, #ff9800 0%, #ff5722 100%);
+            min-height: 100vh;
+            padding-bottom: 40px;
+        }
+
+        .menu-header {
+            text-align: center;
+            color: #fff;
+            padding: 60px 10px 20px 10px;
+        }
+
+        .menu-header h1 {
+            font-size: 70px;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            color: #ffeb3b;
+            text-shadow: 2px 2px 8px #000;
+        }
+
+        .menu-header p {
+            font-size: 32px;
+            color: #fff;
+            text-shadow: 1px 1px 6px #000;
+        }
+
+        .menu-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .tablink {
+            font-size: 32px;
+            color: #fff;
+            background: #ff9800;
+            border: none;
+            border-radius: 20px 20px 0 0;
+            padding: 12px 36px;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .tablink.active,
+        .tablink:hover {
+            background: #ffeb3b;
+            color: #ff5722;
+        }
+
+        .menu-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 32px;
+        }
+
+        .menu-card {
+            background: #fff;
+            border-radius: 24px;
+            box-shadow: 0 8px 32px #0002;
+            width: 340px;
+            max-width: 95vw;
+            padding: 24px 20px 20px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 16px 48px #0003;
+        }
+
+        .menu-img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 16px;
+            margin-bottom: 18px;
+            box-shadow: 0 2px 8px #0002;
+        }
+
+        .menu-title {
+            font-size: 36px;
+            color: #ff5722;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .menu-desc {
+            font-size: 22px;
+            color: #444;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .menu-price {
+            font-size: 28px;
+            color: #ff9800;
+            font-weight: bold;
+            margin-bottom: 16px;
+        }
+
+        .order-btn {
+            font-size: 24px;
+            background: #ff5722;
+            color: #fff;
+            border: none;
+            border-radius: 16px;
+            padding: 10px 32px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .order-btn:hover {
+            background: #ff9800;
+            color: #fff;
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto 32px auto;
+            padding: 0 20px;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 16px 20px;
+            font-size: 20px;
+            border: none;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            outline: none;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .search-bar:focus {
+            background: #fff;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .search-bar::placeholder {
+            color: #999;
+            font-style: italic;
+        }
+
+        .search-results {
+            margin-top: 16px;
+            text-align: center;
+            color: #fff;
+            font-size: 18px;
+        }
+
+        .menu-card.hidden {
+            display: none !important;
+        }
+
+        .search-highlight {
+            background: #ffeb3b;
+            color: #ff5722;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+            .menu-header h1 {
+                font-size: 38px;
+            }
+
+            .menu-header p {
+                font-size: 18px;
+            }
+
+            .tablink {
+                font-size: 18px;
+                padding: 8px 12px;
+            }
+
+            .menu-card {
+                width: 98vw;
+                padding: 12px 4px;
+            }
+
+            .menu-img {
+                width: 80px;
+                height: 80px;
+            }
+
+            .menu-title {
+                font-size: 22px;
+            }
+
+            .menu-desc {
+                font-size: 14px;
+            }
+
+            .menu-price {
+                font-size: 18px;
+            }
+
+            .order-btn {
+                font-size: 16px;
+                padding: 8px 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="menu-bg">
+        <div class="w3-top w3-hide-small">
+            <div class="w3-bar w3-xlarge w3-black w3-opacity w3-hover-opacity-off">
+                <a href="index.html" class="w3-bar-item w3-button">Home</a>
+                <a href="order.html" class="w3-bar-item w3-button">Order</a>
+                <a href="profile.html" class="w3-bar-item w3-button" id="profileLink" style="display:none;">Profile</a>
+                <a href="login.html" class="w3-bar-item w3-button" id="loginLink">Login</a>
+                <a href="signup.html" class="w3-bar-item w3-button" id="signupLink">Sign Up</a>
+                <button id="logoutBtn" class="w3-bar-item w3-button w3-right" style="display:none;">Logout</button>
+                <span id="userDisplay" class="w3-bar-item w3-right"
+                    style="display:none;color:#fff;padding:8px 16px;"></span>
+            </div>
+        </div>
+        <div class="menu-header">
+            <h1><i class="fa-solid fa-pizza-slice"></i> GOGO PIZZA MENU</h1>
+            <p>Discover our delicious pizzas, pastas, and starters!</p>
+        </div>
+        <div class="search-container">
+            <input type="text" id="searchBar" class="search-bar" placeholder="🔍 Search for your favorite dishes..."
+                autocomplete="off">
+            <div id="searchResults" class="search-results"></div>
+        </div>
+        <div class="menu-tabs" id="menuTabs">
+            <!-- Category buttons will be dynamically generated here -->
+        </div>
+        <div id="menuContainers">
+            <!-- Menu containers will be dynamically generated here -->
+        </div>
+    </div>
+    <script>
+        let categories = [];
+        let menuItems = [];
+        let searchQuery = '';
+
+        // Function to get category icon
+        function getCategoryIcon(category) {
+            const iconMap = {
+                'Pizza': 'fa-pizza-slice',
+                'Pasta': 'fa-bowl-food',
+                'Starter': 'fa-bread-slice',
+                'Salad': 'fa-leaf',
+                'Drink': 'fa-glass',
+                'Dessert': 'fa-ice-cream',
+                'Soup': 'fa-mug-hot',
+                'Sandwich': 'fa-bread-slice',
+                'Burger': 'fa-hamburger',
+                'Chicken': 'fa-drumstick-bite',
+                'Seafood': 'fa-fish',
+                'Vegetarian': 'fa-carrot'
+            };
+            return iconMap[category] || 'fa-utensils';
+        }
+
+        // Function to highlight search terms in text
+        function highlightSearchTerm(text, query) {
+            if (!query) return text;
+            const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+            return text.replace(regex, '<span class="search-highlight">$1</span>');
+        }
+
+        // Function to check if item matches search query
+        function itemMatchesSearch(item, query) {
+            if (!query) return true;
+            const searchLower = query.toLowerCase();
+            return (
+                item.name.toLowerCase().includes(searchLower) ||
+                item.description.toLowerCase().includes(searchLower) ||
+                item.category.toLowerCase().includes(searchLower) ||
+                item.price.toString().includes(searchLower)
+            );
+        }
+
+        // Function to perform search
+        function performSearch() {
+            const searchBar = document.getElementById('searchBar');
+            const searchResults = document.getElementById('searchResults');
+            searchQuery = searchBar.value.trim();
+
+            // Update search results message
+            if (searchQuery) {
+                const matchingItems = menuItems.filter(item => itemMatchesSearch(item, searchQuery));
+                if (matchingItems.length === 0) {
+                    searchResults.innerHTML = `<i class="fa-solid fa-search"></i> No items found for "${searchQuery}"`;
+                } else {
+                    searchResults.innerHTML = `<i class="fa-solid fa-check"></i> Found ${matchingItems.length} item${matchingItems.length === 1 ? '' : 's'} for "${searchQuery}"`;
+                }
+            } else {
+                searchResults.innerHTML = '';
+            }
+
+            // Re-render menu items with search filtering
+            renderMenuItems();
+        }
+
+        // Function to generate category buttons and containers
+        function generateCategoryUI() {
+            const menuTabs = document.getElementById('menuTabs');
+            const menuContainers = document.getElementById('menuContainers');
+
+            // Clear existing content
+            menuTabs.innerHTML = '';
+            menuContainers.innerHTML = '';
+
+            // Generate category buttons
+            categories.forEach((category, index) => {
+                const button = document.createElement('button');
+                button.className = `tablink ${index === 0 ? 'active' : ''}`;
+                button.onclick = function (event) { openMenu(event, category); };
+                button.innerHTML = `<i class="fa-solid ${getCategoryIcon(category)}"></i> ${category}`;
+                menuTabs.appendChild(button);
+
+                // Generate menu container
+                const container = document.createElement('div');
+                container.id = category;
+                container.className = 'menu-list';
+                if (index !== 0) {
+                    container.style.display = 'none';
+                }
+                menuContainers.appendChild(container);
+            });
+        }
+
+        // Function to render menu items
+        function renderMenuItems() {
+            categories.forEach(category => {
+                const container = document.getElementById(category);
+                if (!container) return;
+
+                let catItems = menuItems.filter(item => item.category === category);
+
+                // Apply search filter if there's a search query
+                if (searchQuery) {
+                    catItems = catItems.filter(item => itemMatchesSearch(item, searchQuery));
+                }
+
+                if (catItems.length === 0) {
+                    if (searchQuery) {
+                        container.innerHTML = '<p style="color:#fff;font-size:24px;">No items found in this category.</p>';
+                    } else {
+                        container.innerHTML = '<p style="color:#fff;font-size:24px;">No menu items yet.</p>';
+                    }
+                } else {
+                    container.innerHTML = catItems.map((item, idx) => {
+                        const highlightedName = highlightSearchTerm(item.name, searchQuery);
+                        const highlightedDesc = highlightSearchTerm(item.description, searchQuery);
+
+                        return `
+                            <div class="menu-card">
+                                ${item.image ? `<img src="${item.image}" alt="${item.name}" class="menu-img">` : `<div class='menu-img' style='background:#ffe0b2;display:flex;align-items:center;justify-content:center;'><i class=\"fa-solid fa-pizza-slice\" style=\"font-size:48px;color:#ff9800;\"></i></div>`}
+                                <div class="menu-title">${highlightedName}</div>
+                                <div class="menu-desc">${highlightedDesc}</div>
+                                <div class="menu-price">$${parseFloat(item.price).toFixed(2)}</div>
+                                <a href="order.html?item=${encodeURIComponent(item.name)}" class="order-btn"><i class="fa-solid fa-cart-plus"></i> Order</a>
+                            </div>
+                        `;
+                    }).join('');
+                }
+            });
+        }
+
+        function openMenu(evt, menuName) {
+            var i, x, tablinks;
+            x = document.getElementsByClassName("menu-list");
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablink");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            document.getElementById(menuName).style.display = "flex";
+            evt.currentTarget.classList.add("active");
+        }
+
+        // Load categories and menu items
+        async function loadMenuData() {
+            try {
+                // Load categories
+                const categoriesResponse = await fetch('php/categories.json');
+                categories = await categoriesResponse.json();
+
+                // Load menu items
+                const menuResponse = await fetch('php/get_menu.php');
+                menuItems = await menuResponse.json();
+
+                // Generate UI
+                generateCategoryUI();
+                renderMenuItems();
+            } catch (error) {
+                console.error('Error loading menu data:', error);
+                // Fallback to default categories
+                categories = ["Pizza", "Pasta", "Starter"];
+                generateCategoryUI();
+            }
+        }
+
+        // Listen for category changes from dashboard
+        function setupCategoryChangeListener() {
+            // Listen for localStorage changes
+            window.addEventListener('storage', function (e) {
+                if (e.key === 'categoriesUpdated') {
+                    console.log('Categories updated, refreshing menu...');
+                    loadMenuData();
+                }
+            });
+
+            // Listen for custom events (for same-page updates)
+            window.addEventListener('categoriesUpdated', function () {
+                console.log('Categories updated, refreshing menu...');
+                loadMenuData();
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            loadMenuData();
+            setupCategoryChangeListener();
+            setupSearchFunctionality();
+        });
+
+        // Setup search functionality
+        function setupSearchFunctionality() {
+            const searchBar = document.getElementById('searchBar');
+
+            // Real-time search as user types
+            searchBar.addEventListener('input', function () {
+                performSearch();
+            });
+
+            // Clear search when user clicks X or clears the field
+            searchBar.addEventListener('search', function () {
+                if (this.value === '') {
+                    performSearch();
+                }
+            });
+
+            // Keyboard shortcuts
+            searchBar.addEventListener('keydown', function (e) {
+                // Escape key to clear search
+                if (e.key === 'Escape') {
+                    this.value = '';
+                    performSearch();
+                    this.blur();
+                }
+            });
+        }
+
+        // Check login status and update navbar
+        function updateNavbar() {
+            const isLoggedIn = localStorage.getItem('loggedIn') === 'true';
+            const currentUser = localStorage.getItem('currentUser');
+
+            if (isLoggedIn && currentUser) {
+                document.getElementById('loginLink').style.display = 'none';
+                document.getElementById('signupLink').style.display = 'none';
+                document.getElementById('profileLink').style.display = 'inline-block';
+                document.getElementById('logoutBtn').style.display = 'inline-block';
+                document.getElementById('userDisplay').style.display = 'inline-block';
+                document.getElementById('userDisplay').textContent = currentUser;
+            } else {
+                document.getElementById('loginLink').style.display = 'inline-block';
+                document.getElementById('signupLink').style.display = 'inline-block';
+                document.getElementById('profileLink').style.display = 'none';
+                document.getElementById('logoutBtn').style.display = 'none';
+                document.getElementById('userDisplay').style.display = 'none';
+            }
+        }
+
+        document.getElementById('logoutBtn').onclick = function () {
+            localStorage.removeItem('loggedIn');
+            localStorage.removeItem('currentUser');
+            window.location.href = 'index.html';
+        };
+
+        // Initialize navbar on page load
+        updateNavbar();
+    </script>
+</body>
+
+</html>

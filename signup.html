@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Sign Up - GOGO Pizza</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Amatic+SC">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: "Amatic SC", sans-serif
+        }
+
+        .bg {
+            background: linear-gradient(135deg, #ff9800 0%, #ff5722 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .signup-card {
+            background: #fff;
+            border-radius: 24px;
+            box-shadow: 0 8px 32px #0002;
+            padding: 40px 32px 32px 32px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .signup-title {
+            font-size: 54px;
+            color: #ff5722;
+            margin-bottom: 12px;
+            letter-spacing: 2px;
+        }
+
+        .signup-icon {
+            font-size: 60px;
+            color: #ff9800;
+            margin-bottom: 16px;
+        }
+
+        .w3-input {
+            font-size: 22px;
+            border-radius: 12px;
+            margin-bottom: 18px;
+        }
+
+        .signup-btn {
+            font-size: 28px;
+            padding: 12px 0;
+            border-radius: 20px;
+            background: #ff5722;
+            color: #fff;
+            border: none;
+            width: 100%;
+            margin-bottom: 10px;
+            transition: background 0.2s;
+        }
+
+        .signup-btn:hover {
+            background: #e64a19;
+        }
+
+        .switch-link {
+            font-size: 20px;
+            color: #ff9800;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .switch-link:hover {
+            color: #ff5722;
+            text-decoration: underline;
+        }
+
+        #signupMsg {
+            font-size: 20px;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .signup-card {
+                padding: 24px 8px;
+            }
+
+            .signup-title {
+                font-size: 36px;
+            }
+
+            .signup-icon {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg">
+        <div class="signup-card">
+            <div class="signup-icon"><i class="fa-solid fa-user-plus"></i></div>
+            <div class="signup-title">Sign Up</div>
+            <form id="signupForm">
+                <div class="w3-row-padding" style="margin-bottom:10px;">
+                    <div class="w3-col s6" style="padding-right:4px;">
+                        <input class="w3-input w3-border" type="text" placeholder="Name" name="name" required>
+                    </div>
+                    <div class="w3-col s6" style="padding-left:4px;">
+                        <input class="w3-input w3-border" type="text" placeholder="Surname" name="surname" required>
+                    </div>
+                </div>
+                <div style="margin-bottom:10px;">
+                    <input class="w3-input w3-border" type="tel" placeholder="Phone" name="phone" required
+                        pattern="[0-9\-\+\s]{8,15}">
+                </div>
+                <input class="w3-input w3-border" type="text" placeholder="Username" name="username" required>
+                <input class="w3-input w3-border" type="password" placeholder="Password" name="password" required>
+                <div style="margin-top:16px;padding-top:16px;border-top:1px solid #eee;">
+                    <h4 style="font-size:24px;color:#ff5722;margin-bottom:12px;"><i
+                            class="fa-solid fa-map-marker-alt"></i> Delivery Address</h4>
+                    <input class="w3-input w3-border" type="text" placeholder="Street Address" name="street" required>
+                    <div class="w3-row-padding" style="margin-bottom:10px;">
+                        <div class="w3-col s6" style="padding-right:4px;">
+                            <input class="w3-input w3-border" type="text" placeholder="City" name="city" required>
+                        </div>
+                        <div class="w3-col s6" style="padding-left:4px;">
+                            <input class="w3-input w3-border" type="text" placeholder="Postal Code" name="postalCode"
+                                required>
+                        </div>
+                    </div>
+                    <input class="w3-input w3-border" type="text" placeholder="Country" name="country" required>
+                </div>
+                <button class="signup-btn" type="submit"><i class="fa-solid fa-user-plus"></i> Create Account</button>
+                <div id="signupMsg"></div>
+            </form>
+            <p>Already have an account? <a href="login.html" class="switch-link">Login here</a>.</p>
+        </div>
+    </div>
+    <script>
+        document.getElementById('signupForm').onsubmit = async function (e) {
+            e.preventDefault();
+            const form = e.target;
+            const formData = new FormData(form);
+            const resp = await fetch('php/signup.php', {
+                method: 'POST',
+                body: formData
+            });
+            const data = await resp.json();
+            const msg = document.getElementById('signupMsg');
+            if (data.success) {
+                msg.className = 'w3-text-green';
+                msg.textContent = 'Sign up successful! You can now log in.';
+                form.reset();
+            } else {
+                msg.className = 'w3-text-red';
+                msg.textContent = data.error || 'Sign up failed.';
+            }
+        };
+    </script>
+</body>
+
+</html>

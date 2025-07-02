@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>GOGO Pizza</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Amatic+SC">
+  <style>
+    body,
+    html {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: "Amatic SC", sans-serif
+    }
+
+    .hero-bg {
+      background-image: url('IMG/istockphoto-1223648852-612x612.jpg');
+      background-size: cover;
+      background-position: center;
+      min-height: 100vh;
+      position: relative;
+      color: #fff;
+    }
+
+    .hero-overlay {
+      background: rgba(0, 0, 0, 0.6);
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 10px;
+    }
+
+    .gogo-logo {
+      font-size: 90px;
+      font-weight: bold;
+      letter-spacing: 4px;
+      color: #ffeb3b;
+      text-shadow: 2px 2px 8px #000;
+    }
+
+    .gogo-slogan {
+      font-size: 36px;
+      margin: 20px 0 40px 0;
+      color: #fff;
+      text-shadow: 1px 1px 6px #000;
+    }
+
+    .cta-btn {
+      font-size: 32px;
+      padding: 16px 48px;
+      border-radius: 40px;
+      background: #ff5722;
+      color: #fff;
+      border: none;
+      box-shadow: 2px 2px 8px #0003;
+      transition: background 0.2s;
+      margin-bottom: 24px;
+    }
+
+    .cta-btn:hover {
+      background: #e64a19;
+      color: #fff;
+    }
+
+    .nav-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 12px 0;
+      z-index: 2;
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    .nav-link {
+      color: #fff;
+      font-size: 28px;
+      text-decoration: none;
+      padding: 8px 24px;
+      border-radius: 20px;
+      transition: background 0.2s;
+    }
+
+    .nav-link:hover {
+      background: #ff5722;
+      color: #fff;
+    }
+
+    @media (max-width: 600px) {
+      .gogo-logo {
+        font-size: 48px;
+      }
+
+      .gogo-slogan {
+        font-size: 22px;
+      }
+
+      .cta-btn {
+        font-size: 20px;
+        padding: 10px 24px;
+      }
+
+      .nav-link {
+        font-size: 18px;
+        padding: 6px 12px;
+      }
+    }
+
+    .about-section {
+      background: #fff;
+      color: #222;
+      padding: 48px 10px 32px 10px;
+      text-align: center;
+    }
+
+    .about-section h2 {
+      font-size: 48px;
+      color: #ff5722;
+      margin-bottom: 16px;
+    }
+
+    .about-section p {
+      font-size: 28px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="hero-bg">
+    <div class="nav-bar">
+      <a href="menu.html" class="nav-link">Menu</a>
+      <a href="order.html" class="nav-link">Order</a>
+      <a href="profile.html" class="nav-link" id="profileLink" style="display:none;">Profile</a>
+      <a href="login.html" class="nav-link" id="loginLink">Login</a>
+      <a href="signup.html" class="nav-link" id="signupLink">Sign Up</a>
+      <button id="logoutBtn" class="nav-link"
+        style="display:none;background:none;border:none;cursor:pointer;">Logout</button>
+      <span id="userDisplay"
+        style="display:none;color:#fff;font-size:20px;padding:8px 16px;background:rgba(255,87,34,0.8);border-radius:12px;"></span>
+    </div>
+    <div class="hero-overlay">
+      <div class="gogo-logo">GOGO PIZZA</div>
+      <div class="gogo-slogan">Thin Crust, Big Flavor.<br>Fresh. Fast. GOGO!</div>
+      <a href="menu.html" class="cta-btn">See Our Menu</a>
+    </div>
+  </div>
+  <div class="about-section">
+    <h2>About GOGO Pizza</h2>
+    <p>
+      Welcome to GOGO Pizza, where every slice is a celebration! We use only the freshest ingredients and bake our
+      pizzas to crispy, golden perfection. Whether you're craving a classic Margherita, a hearty Meat Town, or a zesty
+      Vegi, we've got something for everyone. Order online, dine in, or take out—GOGO is your go-to for delicious pizza,
+      pasta, and more!
+    </p>
+  </div>
+  <script>
+    // Check login status and update navbar
+    function updateNavbar() {
+      const isLoggedIn = localStorage.getItem('loggedIn') === 'true';
+      const currentUser = localStorage.getItem('currentUser');
+
+      if (isLoggedIn && currentUser) {
+        document.getElementById('loginLink').style.display = 'none';
+        document.getElementById('signupLink').style.display = 'none';
+        document.getElementById('profileLink').style.display = 'inline-block';
+        document.getElementById('logoutBtn').style.display = 'inline-block';
+        document.getElementById('userDisplay').style.display = 'inline-block';
+        document.getElementById('userDisplay').textContent = currentUser;
+      } else {
+        document.getElementById('loginLink').style.display = 'inline-block';
+        document.getElementById('signupLink').style.display = 'inline-block';
+        document.getElementById('profileLink').style.display = 'none';
+        document.getElementById('logoutBtn').style.display = 'none';
+        document.getElementById('userDisplay').style.display = 'none';
+      }
+    }
+
+    // Logout functionality
+    document.getElementById('logoutBtn').onclick = function () {
+      localStorage.removeItem('loggedIn');
+      localStorage.removeItem('currentUser');
+      window.location.reload();
+    };
+
+    // Initialize navbar on page load
+    updateNavbar();
+  </script>
+</body>
+
+</html>

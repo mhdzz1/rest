@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Profile - GOGO Pizza</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Amatic+SC">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: "Amatic SC", sans-serif
+        }
+
+        .profile-bg {
+            background: linear-gradient(135deg, #ff9800 0%, #ff5722 100%);
+            min-height: 100vh;
+            padding-bottom: 40px;
+        }
+
+        .profile-header {
+            text-align: center;
+            color: #fff;
+            padding: 60px 10px 20px 10px;
+        }
+
+        .profile-header h1 {
+            font-size: 70px;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            color: #ffeb3b;
+            text-shadow: 2px 2px 8px #000;
+        }
+
+        .profile-header p {
+            font-size: 32px;
+            color: #fff;
+            text-shadow: 1px 1px 6px #000;
+        }
+
+        .profile-card {
+            background: #fff;
+            border-radius: 24px;
+            box-shadow: 0 8px 32px #0002;
+            max-width: 600px;
+            margin: 32px auto;
+            padding: 32px 24px 24px 24px;
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            background: #ff9800;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px auto;
+            font-size: 48px;
+            color: #fff;
+        }
+
+        .profile-info {
+            margin-bottom: 24px;
+        }
+
+        .profile-field {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 22px;
+        }
+
+        .profile-field:last-child {
+            border-bottom: none;
+        }
+
+        .profile-field.address-field {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .profile-label {
+            font-weight: bold;
+            color: #ff5722;
+        }
+
+        .profile-value {
+            color: #444;
+        }
+
+        .edit-btn {
+            background: #ff5722;
+            color: #fff;
+            border: none;
+            border-radius: 16px;
+            padding: 12px 32px;
+            font-size: 22px;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 16px;
+        }
+
+        .edit-btn:hover {
+            background: #ff9800;
+        }
+
+        .edit-form {
+            display: none;
+            margin-top: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 20px;
+            color: #ff5722;
+            margin-bottom: 4px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 18px;
+            font-family: inherit;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .save-btn {
+            background: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            padding: 10px 24px;
+            font-size: 20px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .save-btn:hover {
+            background: #45a049;
+        }
+
+        .cancel-btn {
+            background: #f44336;
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            padding: 10px 24px;
+            font-size: 20px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .cancel-btn:hover {
+            background: #da190b;
+        }
+
+        .message {
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 16px;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .order-history-section {
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 2px solid #eee;
+        }
+
+        .order-history-title {
+            font-size: 32px;
+            color: #ff5722;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .refresh-btn {
+            background: #ff9800;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 16px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-left: 12px;
+        }
+
+        .refresh-btn:hover {
+            background: #ff5722;
+        }
+
+        .order-item {
+            background: #f9f9f9;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            border-left: 4px solid #ff9800;
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .order-date {
+            font-size: 18px;
+            color: #666;
+            font-weight: bold;
+        }
+
+        .order-total {
+            font-size: 20px;
+            color: #ff5722;
+            font-weight: bold;
+        }
+
+        .order-items {
+            font-size: 16px;
+            color: #444;
+        }
+
+        .order-item-name {
+            display: inline-block;
+            background: #ffe0b2;
+            color: #ff5722;
+            padding: 2px 8px;
+            border-radius: 8px;
+            margin: 2px 4px 2px 0;
+            font-size: 14px;
+        }
+
+        .no-orders {
+            text-align: center;
+            color: #888;
+            font-size: 18px;
+            padding: 20px;
+        }
+
+        .address-section {
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 2px solid #eee;
+        }
+
+        .address-section h3 {
+            font-size: 28px;
+            color: #ff5722;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            .profile-header h1 {
+                font-size: 38px;
+            }
+
+            .profile-header p {
+                font-size: 18px;
+            }
+
+            .profile-card {
+                margin: 16px;
+                padding: 16px;
+            }
+
+            .profile-field {
+                font-size: 18px;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+
+            .order-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="profile-bg">
+        <div class="w3-top w3-hide-small">
+            <div class="w3-bar w3-xlarge w3-black w3-opacity w3-hover-opacity-off">
+                <a href="index.html" class="w3-bar-item w3-button">Home</a>
+                <a href="menu.html" class="w3-bar-item w3-button">Menu</a>
+                <a href="order.html" class="w3-bar-item w3-button">Order</a>
+                <a href="profile.html" class="w3-bar-item w3-button w3-orange">Profile</a>
+                <a href="login.html" class="w3-bar-item w3-button" id="loginLink">Login</a>
+                <a href="signup.html" class="w3-bar-item w3-button" id="signupLink">Sign Up</a>
+                <button id="logoutBtn" class="w3-bar-item w3-button w3-right" style="display:none;">Logout</button>
+                <span id="userDisplay" class="w3-bar-item w3-right"
+                    style="display:none;color:#fff;padding:8px 16px;"></span>
+            </div>
+        </div>
+        <div class="profile-header">
+            <h1><i class="fa-solid fa-user"></i> My Profile</h1>
+            <p>View and edit your account information</p>
+        </div>
+        <div class="profile-card">
+            <div class="profile-avatar">
+                <i class="fa-solid fa-user"></i>
+            </div>
+            <div class="profile-info" id="profileInfo">
+                <div class="profile-field">
+                    <span class="profile-label">Name:</span>
+                    <span class="profile-value" id="userName">Loading...</span>
+                </div>
+                <div class="profile-field">
+                    <span class="profile-label">Surname:</span>
+                    <span class="profile-value" id="userSurname">Loading...</span>
+                </div>
+                <div class="profile-field">
+                    <span class="profile-label">Username:</span>
+                    <span class="profile-value" id="userUsername">Loading...</span>
+                </div>
+                <div class="profile-field">
+                    <span class="profile-label">Phone:</span>
+                    <span class="profile-value" id="userPhone">Loading...</span>
+                </div>
+                <div class="address-section">
+                    <h3><i class="fa-solid fa-map-marker-alt"></i> Delivery Address</h3>
+                    <div class="profile-field address-field">
+                        <span class="profile-label">Street Address:</span>
+                        <span class="profile-value" id="userStreet">Loading...</span>
+                    </div>
+                    <div class="profile-field address-field">
+                        <span class="profile-label">City:</span>
+                        <span class="profile-value" id="userCity">Loading...</span>
+                    </div>
+                    <div class="profile-field address-field">
+                        <span class="profile-label">Postal Code:</span>
+                        <span class="profile-value" id="userPostal">Loading...</span>
+                    </div>
+                    <div class="profile-field address-field">
+                        <span class="profile-label">Country:</span>
+                        <span class="profile-value" id="userCountry">Loading...</span>
+                    </div>
+                </div>
+            </div>
+            <button class="edit-btn" onclick="showEditForm()">
+                <i class="fa-solid fa-edit"></i> Edit Profile
+            </button>
+            <div class="edit-form" id="editForm">
+                <div class="form-group">
+                    <label for="editName">Name:</label>
+                    <input type="text" id="editName" required>
+                </div>
+                <div class="form-group">
+                    <label for="editSurname">Surname:</label>
+                    <input type="text" id="editSurname" required>
+                </div>
+                <div class="form-group">
+                    <label for="editPhone">Phone:</label>
+                    <input type="tel" id="editPhone" required>
+                </div>
+                <div class="form-group">
+                    <label for="editStreet">Street Address:</label>
+                    <input type="text" id="editStreet" placeholder="Enter your street address">
+                </div>
+                <div class="form-group">
+                    <label for="editCity">City:</label>
+                    <input type="text" id="editCity" placeholder="Enter your city">
+                </div>
+                <div class="form-group">
+                    <label for="editPostal">Postal Code:</label>
+                    <input type="text" id="editPostal" placeholder="Enter postal code">
+                </div>
+                <div class="form-group">
+                    <label for="editCountry">Country:</label>
+                    <input type="text" id="editCountry" placeholder="Enter your country">
+                </div>
+                <div class="form-actions">
+                    <button class="save-btn" onclick="saveProfile()">
+                        <i class="fa-solid fa-save"></i> Save
+                    </button>
+                    <button class="cancel-btn" onclick="cancelEdit()">
+                        <i class="fa-solid fa-times"></i> Cancel
+                    </button>
+                </div>
+            </div>
+            <div id="message"></div>
+        </div>
+        <div class="order-history-section">
+            <div class="order-history-title">
+                <i class="fa-solid fa-history"></i> My Order History
+                <button class="refresh-btn" onclick="loadOrderHistory()" title="Refresh Order History">
+                    <i class="fa-solid fa-rotate"></i>
+                </button>
+            </div>
+            <div id="orderHistory"></div>
+        </div>
+    </div>
+    <script>
+        // Check login status and update navbar
+        function updateNavbar() {
+            const isLoggedIn = localStorage.getItem('loggedIn') === 'true';
+            const currentUser = localStorage.getItem('currentUser');
+
+            if (isLoggedIn && currentUser) {
+                document.getElementById('loginLink').style.display = 'none';
+                document.getElementById('signupLink').style.display = 'none';
+                document.getElementById('logoutBtn').style.display = 'inline-block';
+                document.getElementById('userDisplay').style.display = 'inline-block';
+                document.getElementById('userDisplay').textContent = currentUser;
+            } else {
+                document.getElementById('loginLink').style.display = 'inline-block';
+                document.getElementById('signupLink').style.display = 'inline-block';
+                document.getElementById('logoutBtn').style.display = 'none';
+                document.getElementById('userDisplay').style.display = 'none';
+            }
+        }
+
+        // Load user profile
+        async function loadProfile() {
+            const currentUser = localStorage.getItem('currentUser');
+            if (!currentUser) {
+                showMessage('Please log in to view your profile.', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch('php/users.json');
+                const users = await response.json();
+                const user = users.find(u => u.username === currentUser);
+
+                if (user) {
+                    document.getElementById('userName').textContent = user.name || 'N/A';
+                    document.getElementById('userSurname').textContent = user.surname || 'N/A';
+                    document.getElementById('userUsername').textContent = user.username || 'N/A';
+                    document.getElementById('userPhone').textContent = user.phone || 'N/A';
+                    document.getElementById('userStreet').textContent = user.address?.street || 'N/A';
+                    document.getElementById('userCity').textContent = user.address?.city || 'N/A';
+                    document.getElementById('userPostal').textContent = user.address?.postalCode || 'N/A';
+                    document.getElementById('userCountry').textContent = user.address?.country || 'N/A';
+                } else {
+                    showMessage('User not found.', 'error');
+                }
+            } catch (error) {
+                showMessage('Error loading profile.', 'error');
+            }
+        }
+
+        // Load user's order history
+        async function loadOrderHistory() {
+            const currentUser = localStorage.getItem('currentUser');
+            if (!currentUser) {
+                return;
+            }
+
+            try {
+                // Get orders from localStorage (for admin dashboard compatibility)
+                const localOrders = JSON.parse(localStorage.getItem('orders') || '[]');
+
+                // Get orders from server using the efficient endpoint
+                const serverResponse = await fetch(`php/get_user_orders.php?username=${encodeURIComponent(currentUser)}`);
+                let serverOrders = [];
+
+                if (serverResponse.ok) {
+                    const serverData = await serverResponse.json();
+                    if (serverData.success) {
+                        serverOrders = serverData.orders || [];
+                    }
+                }
+
+                // Combine and filter orders for current user
+                const allOrders = [...localOrders, ...serverOrders];
+                const userOrders = allOrders.filter(order =>
+                    order.username === currentUser ||
+                    (order.username && order.username.toLowerCase() === currentUser.toLowerCase())
+                );
+
+                displayOrderHistory(userOrders);
+            } catch (error) {
+                console.error('Error loading order history:', error);
+                // Fallback to localStorage only
+                const localOrders = JSON.parse(localStorage.getItem('orders') || '[]');
+                const userOrders = localOrders.filter(order =>
+                    order.username === currentUser ||
+                    (order.username && order.username.toLowerCase() === currentUser.toLowerCase())
+                );
+                displayOrderHistory(userOrders);
+            }
+        }
+
+        // Display order history
+        function displayOrderHistory(orders) {
+            const orderHistoryDiv = document.getElementById('orderHistory');
+
+            if (!orders || orders.length === 0) {
+                orderHistoryDiv.innerHTML = '<div class="no-orders">No orders found. Start ordering to see your history here!</div>';
+                return;
+            }
+
+            // Sort orders by date (newest first)
+            orders.sort((a, b) => {
+                const dateA = new Date(a.date || a.timestamp || 0);
+                const dateB = new Date(b.date || b.timestamp || 0);
+                return dateB - dateA;
+            });
+
+            const ordersHtml = orders.map(order => {
+                const orderDate = new Date(order.date || order.timestamp || Date.now());
+                const formattedDate = orderDate.toLocaleDateString() + ' ' + orderDate.toLocaleTimeString();
+                const total = order.price || (order.items ? order.items.reduce((sum, item) => sum + (parseFloat(item.price) || 0), 0) : 0);
+                const items = order.items || [];
+
+                const itemsHtml = items.map(item =>
+                    `<span class="order-item-name">${item.name} - $${parseFloat(item.price).toFixed(2)}</span>`
+                ).join('');
+
+                return `
+                    <div class="order-item">
+                        <div class="order-header">
+                            <div class="order-date">${formattedDate}</div>
+                            <div class="order-total">$${parseFloat(total).toFixed(2)}</div>
+                        </div>
+                        <div class="order-items">
+                            ${itemsHtml || 'No items listed'}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            orderHistoryDiv.innerHTML = ordersHtml;
+        }
+
+        // Show edit form
+        function showEditForm() {
+            const currentUser = localStorage.getItem('currentUser');
+            if (!currentUser) {
+                showMessage('Please log in to edit your profile.', 'error');
+                return;
+            }
+
+            // Populate form with current values
+            document.getElementById('editName').value = document.getElementById('userName').textContent;
+            document.getElementById('editSurname').value = document.getElementById('userSurname').textContent;
+            document.getElementById('editPhone').value = document.getElementById('userPhone').textContent;
+            document.getElementById('editStreet').value = document.getElementById('userStreet').textContent;
+            document.getElementById('editCity').value = document.getElementById('userCity').textContent;
+            document.getElementById('editPostal').value = document.getElementById('userPostal').textContent;
+            document.getElementById('editCountry').value = document.getElementById('userCountry').textContent;
+
+            document.getElementById('profileInfo').style.display = 'none';
+            document.getElementById('editForm').style.display = 'block';
+            document.querySelector('.edit-btn').style.display = 'none';
+        }
+
+        // Save profile changes
+        async function saveProfile() {
+            const currentUser = localStorage.getItem('currentUser');
+            if (!currentUser) {
+                showMessage('Please log in to save changes.', 'error');
+                return;
+            }
+
+            const name = document.getElementById('editName').value.trim();
+            const surname = document.getElementById('editSurname').value.trim();
+            const phone = document.getElementById('editPhone').value.trim();
+            const street = document.getElementById('editStreet').value.trim();
+            const city = document.getElementById('editCity').value.trim();
+            const postal = document.getElementById('editPostal').value.trim();
+            const country = document.getElementById('editCountry').value.trim();
+
+            if (!name || !surname || !phone || !street || !city || !postal || !country) {
+                showMessage('Please fill in all fields.', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch('php/users.json');
+                const users = await response.json();
+                const userIndex = users.findIndex(u => u.username === currentUser);
+
+                if (userIndex !== -1) {
+                    users[userIndex].name = name;
+                    users[userIndex].surname = surname;
+                    users[userIndex].phone = phone;
+                    users[userIndex].address = {
+                        street: street,
+                        city: city,
+                        postalCode: postal,
+                        country: country
+                    };
+
+                    // Save updated users data
+                    const saveResponse = await fetch('php/update_profile.php', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(users)
+                    });
+
+                    const result = await saveResponse.json();
+                    if (result.success) {
+                        showMessage('Profile updated successfully!', 'success');
+                        loadProfile();
+                        loadOrderHistory();
+                        cancelEdit();
+                    } else {
+                        showMessage(result.error || 'Failed to update profile.', 'error');
+                    }
+                } else {
+                    showMessage('User not found.', 'error');
+                }
+            } catch (error) {
+                showMessage('Error updating profile.', 'error');
+            }
+        }
+
+        // Cancel edit
+        function cancelEdit() {
+            document.getElementById('profileInfo').style.display = 'block';
+            document.getElementById('editForm').style.display = 'none';
+            document.querySelector('.edit-btn').style.display = 'inline-block';
+            document.getElementById('message').innerHTML = '';
+        }
+
+        // Show message
+        function showMessage(text, type) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.innerHTML = `<div class="message ${type}">${text}</div>`;
+            setTimeout(() => {
+                messageDiv.innerHTML = '';
+            }, 5000);
+        }
+
+        // Logout
+        document.getElementById('logoutBtn').onclick = function () {
+            localStorage.removeItem('loggedIn');
+            localStorage.removeItem('currentUser');
+            window.location.href = 'index.html';
+        };
+
+        // Initialize page
+        updateNavbar();
+        loadProfile();
+        loadOrderHistory();
+    </script>
+</body>
+
+</html>

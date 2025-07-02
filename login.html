@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Login - GOGO Pizza</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Amatic+SC">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: "Amatic SC", sans-serif
+        }
+
+        .bg {
+            background: linear-gradient(135deg, #ff9800 0%, #ff5722 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-card {
+            background: #fff;
+            border-radius: 24px;
+            box-shadow: 0 8px 32px #0002;
+            padding: 40px 32px 32px 32px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .login-title {
+            font-size: 54px;
+            color: #ff5722;
+            margin-bottom: 12px;
+            letter-spacing: 2px;
+        }
+
+        .login-icon {
+            font-size: 60px;
+            color: #ff9800;
+            margin-bottom: 16px;
+        }
+
+        .w3-input {
+            font-size: 22px;
+            border-radius: 12px;
+            margin-bottom: 18px;
+        }
+
+        .login-btn {
+            font-size: 28px;
+            padding: 12px 0;
+            border-radius: 20px;
+            background: #ff5722;
+            color: #fff;
+            border: none;
+            width: 100%;
+            margin-bottom: 10px;
+            transition: background 0.2s;
+        }
+
+        .login-btn:hover {
+            background: #e64a19;
+        }
+
+        .switch-link {
+            font-size: 20px;
+            color: #ff9800;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .switch-link:hover {
+            color: #ff5722;
+            text-decoration: underline;
+        }
+
+        #loginMsg {
+            font-size: 20px;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .login-card {
+                padding: 24px 8px;
+            }
+
+            .login-title {
+                font-size: 36px;
+            }
+
+            .login-icon {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg">
+        <div class="login-card">
+            <div class="login-icon"><i class="fa-solid fa-sign-in-alt"></i></div>
+            <div class="login-title">Login</div>
+            <form id="loginForm">
+                <input class="w3-input w3-border" type="text" placeholder="Username" name="username" required
+                    style="text-transform:none;">
+                <div style="position:relative;">
+                    <input class="w3-input w3-border" type="password" placeholder="Password" name="password" required
+                        style="text-transform:none; padding-right:40px;">
+                    <span id="togglePassword"
+                        style="position:absolute;top:50%;right:12px;transform:translateY(-50%);cursor:pointer;font-size:22px;color:#ff9800;">
+                        <i class="fa-solid fa-eye"></i>
+                    </span>
+                </div>
+                <button class="login-btn" type="submit"><i class="fa-solid fa-sign-in-alt"></i> Login</button>
+                <div id="loginMsg"></div>
+            </form>
+            <p>Don't have an account? <a href="signup.html" class="switch-link">Sign up here</a>.</p>
+        </div>
+    </div>
+    <script>
+        document.getElementById('loginForm').onsubmit = async function (e) {
+            e.preventDefault();
+            const form = e.target;
+            const formData = new FormData(form);
+            const resp = await fetch('php/login.php', {
+                method: 'POST',
+                body: formData
+            });
+            const data = await resp.json();
+            const msg = document.getElementById('loginMsg');
+            if (data.success) {
+                msg.className = 'w3-text-green';
+                msg.textContent = 'Login successful! Redirecting...';
+                setTimeout(() => {
+                    localStorage.setItem('loggedIn', 'true');
+                    const username = form.username.value;
+                    localStorage.setItem('currentUser', username);
+                    const uname = username.toLowerCase();
+                    const pword = form.password.value.toLowerCase();
+                    if (uname === 'admin' && pword === 'admin123') {
+                        window.location.href = 'dashboard.html';
+                    } else {
+                        window.location.href = 'order.html';
+                    }
+                }, 1000);
+            } else {
+                msg.className = 'w3-text-red';
+                msg.textContent = data.error || 'Login failed.';
+            }
+        };
+
+        // Show/hide password logic
+        const passwordInput = document.querySelector('input[name="password"]');
+        const togglePassword = document.getElementById('togglePassword');
+        togglePassword.onclick = function () {
+            const type = passwordInput.type === 'password' ? 'text' : 'password';
+            passwordInput.type = type;
+            togglePassword.innerHTML = type === 'password' ? '<i class="fa-solid fa-eye"></i>' : '<i class="fa-solid fa-eye-slash"></i>';
+        };
+    </script>
+</body>
+
+</html>
